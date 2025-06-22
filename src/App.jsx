@@ -4,6 +4,7 @@ import './App.css'
 import Search from './components/Search'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import MovieCard from './components/MovieCard'
 
 const API_URL = 'https://api.themoviedb.org/3'
 const API_KEY = import.meta.env.VITE_TMDB_API
@@ -55,7 +56,16 @@ function App() {
           <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle</h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         </header>
-        
+        <section className='all-movies'>
+          <h2>All Movies</h2>
+          {isLoading ?(
+            <p>Loading...</p>
+          ) : (<ul>
+            {movieList.map((movie)=>(
+              <MovieCard key={movie.id} movie={movie}/>
+            ))}
+          </ul>)}
+        </section>
       </div>
       <ToastContainer/>
     </main>
