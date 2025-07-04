@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import MovieCard from './components/MovieCard'
 import Filter from './components/Filter'
+import { useDebounce } from 'react-use'
 
 const API_URL = 'https://api.themoviedb.org/3'
 const API_KEY = import.meta.env.VITE_TMDB_API
@@ -25,7 +26,9 @@ function App() {
   const [year, setYear] = useState('');
   const [rating, setRating] = useState('');
   const [genre, setGenre] = useState('');
+  const [debounceSearchTerm,setDebounceSearchTerm] = useState('');
 
+  useDebounce(()=> setDebounceSearchTerm(searchTerm),500,[searchTerm])
 
   const fetchMovies = async (query = '') =>{
     setIsLoading(true);
@@ -58,8 +61,8 @@ function App() {
     }
   }
   useEffect(()=>{
-    fetchMovies(searchTerm);
-  },[searchTerm, language, year, rating, genre])
+    fetchMovies(debounceSearchTerm);
+  },[debounceSearchTerm, language, year, rating, genre])
   return (
     <main>
       <div className="pattern"/>
