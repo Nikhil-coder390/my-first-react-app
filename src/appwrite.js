@@ -3,16 +3,15 @@ import { Client, Databases, Query,ID } from "appwrite";
 const project_id = import.meta.env.VITE_APPWRITE_PROJECT_ID
 const database_id = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const collection_id= import.meta.env.VITE_APPWRITE_COLLECTION_ID;
-const endpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
 
-const client = new Client().setEndpoint(endpoint).setProject(project_id)
+const client = new Client().setEndpoint('https://fra.cloud.appwrite.io/v1').setProject(project_id)
 const database = new Databases(client);
 
 export const updateSearchCount = async (searchTerm,movie) => {
     try{
         const result = await database.listDocuments(database_id,collection_id, [
             Query.equal('searchTerm',searchTerm),
-        ]);
+        ])
         if(result.documents.length>0){
             const doc = result.documents[0];
             await database.updateDocument(database_id,collection_id,doc.$id,{
@@ -23,7 +22,7 @@ export const updateSearchCount = async (searchTerm,movie) => {
                 searchTerm,
                 count:1,
                 movie_id :movie.id,
-                poster_url :  `https://image.tmdb.org./t/p/w/500${movie.poster_url}`,
+                poster_url: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
             })
         }
     }

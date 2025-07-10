@@ -53,7 +53,7 @@ function App() {
 
   const loadTrendingMovies = async ()=>{
     try{
-      const movies = displayTrendingMovie();
+      const movies = await displayTrendingMovie();
       setTrendingMovies(movies);
 
     }catch(error){
@@ -66,7 +66,7 @@ function App() {
 
   useEffect(()=>{
     loadTrendingMovies();
-  },[])
+  },[]);
   return (
     <main>
       <div className="pattern"/>
@@ -78,20 +78,20 @@ function App() {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         </header>
         {trendingMovies.length>0 && (
-          <section className='trending'>
+          <section className="trending">
             <h2>Trending Movies</h2>
             <ul>
-              {trendingMovies.map((movie,index)=>{
+              {trendingMovies.map((movie,index)=>(
                 <li key={movie.$id}>
-                  <p>{index+1}</p>
+                  <p>{index + 1}</p>
                   <img src={movie.poster_url} alt={movie.title}/>
                 </li>
-              })}
+              ))}
             </ul>
           </section>
         )}
         <section className='all-movies'>
-          <h2 className='m-3'>All Movies</h2>
+          <h2 className=''>All Movies</h2>
           {isLoading ?(
             <p>Loading...</p>
           ) : (<ul>
