@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Search from './components/Search'
+import heroImg from './assets/hero.png'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import MovieCard from './components/MovieCard'
@@ -73,7 +74,7 @@ function App() {
 
       <div className="wrapper">
         <header>
-          <img src="./src/assets/hero.png" alt="Hero Banner" />
+          <img src={heroImg} alt="Hero Banner" />
           <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle</h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         </header>
