@@ -1,2 +1,2 @@
 ## Movie Recomendation App
-Using ReactJS
+Using ReactJS + AppWrite
